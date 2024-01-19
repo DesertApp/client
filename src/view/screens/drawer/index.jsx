@@ -11,6 +11,7 @@ import FAQ from "@/view/screens/drawer/FAQ";
 import Protocol from "@/view/screens/drawer/Protocol";
 import TermsAndConditions from "@/view/screens/drawer/TermsAndConditions";
 import PrivacyPolicy from "@/view/screens/drawer/PrivacyPolicy";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import BackIcon from "@/media/icons/BackIcon.svg";
 
@@ -118,14 +119,18 @@ export default function DrawerView() {
 
   const [contentHeight, setContentHeight] = useState(0);
 
+  const insets = useSafeAreaInsets();
+
   return (
     <Drawer.Navigator
       drawerContent={(props) => {
         return (
           <DrawerContentScrollView
-            style={styles.drawerContainer}
             onContentSizeChange={(_, height) => setContentHeight(height)}
             scrollEnabled={contentHeight > dimensions.height}
+            contentContainerStyle={{
+              paddingTop: insets.top,
+            }}
             {...props}
           >
             <View style={styles.header}>
@@ -142,7 +147,6 @@ export default function DrawerView() {
 
               <Text style={styles.username}>@{user.username}</Text>
             </View>
-
             {/* Settings */}
             <Text style={styles.groupTitle}>Settings</Text>
             <View style={styles.group}>
@@ -153,11 +157,10 @@ export default function DrawerView() {
                   style={styles.item}
                 >
                   <Item.icon width={24} height={24} />
-                  <Text>{Item.label}</Text>
+                  <Text style={styles.itemLabel}>{Item.label}</Text>
                 </TouchableOpacity>
               ))}
             </View>
-
             {/* Share & Support */}
             <Text style={styles.groupTitle}>Share & Support</Text>
             <View style={styles.group}>
@@ -172,7 +175,6 @@ export default function DrawerView() {
                 </TouchableOpacity>
               ))}
             </View>
-
             {/* About */}
             <Text style={styles.groupTitle}>About</Text>
             <View style={styles.group}>
@@ -187,7 +189,6 @@ export default function DrawerView() {
                 </TouchableOpacity>
               ))}
             </View>
-
             {/* Logout */}
             <View style={styles.group}>
               <TouchableOpacity
@@ -198,7 +199,6 @@ export default function DrawerView() {
                 <Text>Log out</Text>
               </TouchableOpacity>
             </View>
-
             <DrawerItemList {...props} />
           </DrawerContentScrollView>
         );
@@ -237,6 +237,7 @@ export default function DrawerView() {
 const styles = StyleSheet.create({
   drawerContainer: {
     flex: 1,
+    paddingTop: 0,
   },
   header: {
     marginHorizontal: "auto",
@@ -272,8 +273,10 @@ const styles = StyleSheet.create({
   },
   groupTitle: {
     marginHorizontal: 12,
-    marginBottom: 4,
+    marginBottom: 6,
     paddingLeft: 8,
+    fontSize: 12,
+    fontFamily: fonts.Regular,
   },
   group: {
     marginBottom: 16,
@@ -296,6 +299,10 @@ const styles = StyleSheet.create({
     gap: 12,
     paddingHorizontal: 16,
     paddingVertical: 12,
+  },
+  itemLabel: {
+    fontFamily: fonts.Medium,
+    fontSize: 16,
   },
   avatar: {
     width: 40,

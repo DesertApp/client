@@ -5,6 +5,7 @@ import { enableScreens } from "react-native-screens";
 import Navigation from "@/Navigation";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 enableScreens();
 
@@ -22,9 +23,11 @@ export default function App() {
   }, [fontsLoaded, fontError]);
 
   return (
-    <View style={styles.container}>
-      <Navigation onLayout={onLayoutRootView} />
-    </View>
+    <SafeAreaProvider>
+      <View style={styles.container}>
+        <Navigation onLayout={onLayoutRootView} />
+      </View>
+    </SafeAreaProvider>
   );
 }
 

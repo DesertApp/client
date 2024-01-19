@@ -8,6 +8,7 @@ module.exports = {
         root: ["./src"],
         alias: {
           "@": "./src",
+          crypto: "./src/platform/crypto.ts",
         },
       },
     ],

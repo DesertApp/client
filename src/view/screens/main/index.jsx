@@ -143,6 +143,7 @@ export default function MainStackView() {
         component={TabView}
         options={({ navigation }) => ({
           title: "",
+          headerStyle: { height: 50 },
           headerLeft: () => (
             <View style={styles.user}>
               <TouchableOpacity
@@ -188,7 +189,8 @@ export default function MainStackView() {
 
 const styles = StyleSheet.create({
   user: {
-    marginTop: 4,
+    // marginTop: 4,
+    height: 40,
     marginLeft: isWeb ? gaps.screenMargin : 0,
     flexDirection: "row",
     alignItems: "center",
